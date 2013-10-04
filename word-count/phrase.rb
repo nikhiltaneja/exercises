@@ -1,20 +1,20 @@
 class Phrase
 
-  attr_reader :words
+  attr_reader :message
 
   def initialize(message)
-    @words = message_to_words(message)
+    @message = message
   end
 
   def word_count
-    counts = Hash.new(0)
-    words.each { |word| counts[word] += 1 }
-    return counts
+    words.each_with_object(Hash.new(0)) do |word, counter|
+      counter[word] += 1
+    end
   end
 
   private
 
-  def message_to_words(message)
+  def words
     message.downcase.scan(/\w+/)
   end
 end
