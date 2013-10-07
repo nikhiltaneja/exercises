@@ -1,9 +1,9 @@
 class Phrase
 
-  attr_reader :message
+  attr_reader :text
 
-  def initialize(message)
-    @message = message
+  def initialize(text)
+    @text = text
   end
 
   def word_count
@@ -15,6 +15,6 @@ class Phrase
   private
 
   def words
-    message.downcase.scan(/\w+/)
+    text.downcase.scan(/\w+/)
   end
 end
