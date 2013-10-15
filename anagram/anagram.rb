@@ -1,25 +1,28 @@
 class Anagram
-  attr_reader :input
+  attr_reader :subject
 
   def initialize(input)
-    @input = input
+    @subject = input.downcase
   end
 
-  def match(potential_matches)
-    filter_duplicates(potential_matches).find_all do |potential_match|
-      sort_letters(potential_match) == sort_letters(input)
+  def match(candidates)
+    candidates.find_all do |candidate|
+      anagram?(candidate)
     end
   end
 
   private
 
-  def sort_letters(input)
-    input.downcase.split("").sort.join
+  def anagram?(candidate)
+    !duplicate?(candidate) && rearranged?(candidate)
   end
 
-  def filter_duplicates(list_of_words)
-    list_of_words.reject do |word|
-      word.downcase == input.downcase
-    end
+  def duplicate?(word)
+    word.downcase == subject
   end
+
+  def rearranged?(word)
+    word.downcase.chars.sort == subject.chars.sort
+  end
+
 end
