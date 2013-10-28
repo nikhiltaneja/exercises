@@ -1,19 +1,27 @@
 class Hamming
 
-  def self.compute(strand_one, strand_two)
-    paired_strands(strand_one, strand_two).count do |nucleotide_one, nucleotide_two|
-      mutation?(nucleotide_one, nucleotide_two)
+  def self.compute(strand_1, strand_2)
+    Hamming.new(strand_1, strand_2).distance
+  end
+
+  attr_reader :strand_1, :strand_2
+
+  def initialize(strand_1, strand_2)
+    @strand_1 = strand_1.chars
+    @strand_2 = strand_2.chars
+  end
+
+  def distance
+    paired_strands(strand_1, strand_2).count do |nucleotide_1, nucleotide_2|
+      mutation?(nucleotide_1, nucleotide_2)
     end
   end
 
-  def self.paired_strands(strand_one, strand_two)
-    strand_one_nucleotides = strand_one.chars
-    strand_two_nucleotides = strand_two.chars
-
-    strand_one_nucleotides.zip(strand_two_nucleotides)
+  def paired_strands(strand_1, strand_2)
+    strand_1.zip(strand_2)
   end
 
-  def self.mutation?(nucleotide_one, nucleotide_two)
-    !(nucleotide_one.nil? || nucleotide_two.nil?) && (nucleotide_one != nucleotide_two)
+  def mutation?(nucleotide_1, nucleotide_2)
+    !(nucleotide_1.nil? || nucleotide_2.nil?) && (nucleotide_1 != nucleotide_2)
   end
 end
