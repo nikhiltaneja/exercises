@@ -17,19 +17,16 @@ class DNA
   end
 
   def nucleotide_counts
-    {
-      'A' => count('A'),
-      'T' => count('T'),
-      'C' => count('C'),
-      'G' => count('G')
-    }
+    valid_nucleotides.each_with_object({}) do |nucleotide, counts|
+      counts[nucleotide] = count(nucleotide)
+    end
   end
 
   def validate(letter)
-    raise ArgumentError unless valid_letters.include?(letter)
+    raise ArgumentError unless valid_nucleotides.include?(letter)
   end
 
-  def valid_letters
-    valid_letters = ['A', 'T', 'C', 'G']
+  def valid_nucleotides
+    valid_nucleotides = ['A', 'T', 'C', 'G']
   end
 end
